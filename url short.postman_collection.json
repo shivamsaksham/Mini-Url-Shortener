@@ -1,0 +1,444 @@
+{
+	"info": {
+		"_postman_id": "d777d11d-7e4c-40c4-9cd3-98dea4f4cd5b",
+		"name": "url short",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30405249",
+		"_collection_link": "https://judixcore.postman.co/workspace/JudixCore-Workspace~94a9f253-8674-487e-840d-99596d3eae98/collection/30405249-d777d11d-7e4c-40c4-9cd3-98dea4f4cd5b?action=share&source=collection_link&creator=30405249"
+	},
+	"item": [
+		{
+			"name": "short url",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response status code is 201', function () {",
+							"    pm.expect(pm.response.code).to.equal(201);",
+							"})",
+							"",
+							"pm.test('Response has required fields', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.all.keys('shortUrl', 'originalUrl', 'shortCode');",
+							"})",
+							"",
+							"pm.test('ShortCode is a non-empty string', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.shortCode).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, 'ShortCode should not be empty');",
+							"})",
+							"",
+							"pm.test('ShortUrl is a valid URL format', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.have.property('shortUrl').that.is.a('string').and.satisfy(url => {",
+							"        const urlPattern = /^(http?:\\/\\/)?([a-z0-9-]+\\.)+[a-z]{2,6}(\\/[^\\s]*)?$/i;",
+							"        return urlPattern.test(url);",
+							"    });",
+							"})",
+							"",
+							"pm.test('The originalUrl must be a valid URL format', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.originalUrl).to.match(/^(http|https):\\/\\/[^ \"]+$/, 'Original URL is not in a valid format');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://shivamsaksham.codeviral.dev/\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/shorten",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"shorten"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success Url Short",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://shivamsaksham.codeviral.dev/\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/shorten",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"shorten"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "117"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"75-Qr8J/JW3NbqoqOxS/qwWv7PLAUI\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 09 Jul 2025 13:45:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"shortUrl\": \"http://localhost:5000/YZehJ2\",\n    \"originalUrl\": \"https://shivamsaksham.codeviral.dev/\",\n    \"shortCode\": \"YZehJ2\"\n}"
+				},
+				{
+					"name": "Invalid Original URL Error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"htt://shivamsaksham.codeviral.dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/shorten",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"shorten"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "97"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"61-Ce5+agt+N/9FwcKCcdVAbRLufLo\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 09 Jul 2025 13:52:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid URL format. Please provide a valid HTTP or HTTPS URL.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Redirection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response content type is text/html\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('text/html');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const responseBody = pm.response.text();",
+							"    pm.expect(responseBody).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains valid HTML structure\", function () {",
+							"    const responseBody = pm.response.text();",
+							"    ",
+							"    pm.expect(responseBody).to.include(\"<!DOCTYPE html>\");",
+							"    pm.expect(responseBody).to.include(\"<html\");",
+							"    pm.expect(responseBody).to.include(\"<head\");",
+							"    pm.expect(responseBody).to.include(\"<body\");",
+							"    pm.expect(responseBody).to.include(\"</body>\");",
+							"    pm.expect(responseBody).to.include(\"</html>\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/YZehJ2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"YZehJ2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "short url stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response content type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.all.keys('shortCode', 'originalUrl', 'createdAt', 'expiryDate', 'clickCount');",
+							"});",
+							"",
+							"",
+							"pm.test(\"ClickCount should be a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.have.property('clickCount');",
+							"    pm.expect(responseData.clickCount).to.be.a('number').and.to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"CreatedAt and expiryDate are in a valid date format\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    const createdAt = new Date(responseData.createdAt);",
+							"    const expiryDate = new Date(responseData.expiryDate);",
+							"",
+							"    pm.expect(createdAt).to.be.instanceOf(Date).and.to.not.be.NaN;",
+							"    pm.expect(expiryDate).to.be.instanceOf(Date).and.to.not.be.NaN;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://shivamsaksham.codeviral.dev/\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/stats/YZehJ2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stats",
+						"YZehJ2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success Stat Fetch",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://shivamsaksham.codeviral.dev/\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/stats/YZehJ2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stats",
+								"YZehJ2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "169"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a9-R9iYRhjLACkcTGYso3TnLmXm9ZI\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 09 Jul 2025 13:50:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"shortCode\": \"YZehJ2\",\n    \"originalUrl\": \"https://shivamsaksham.codeviral.dev/\",\n    \"createdAt\": \"2025-07-09T13:45:04.362Z\",\n    \"expiryDate\": \"2025-07-24T13:45:04.351Z\",\n    \"clickCount\": 2\n}"
+				},
+				{
+					"name": "Wrong Short Code Error Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://shivamsaksham.codeviral.dev/\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/stats/YZehJsd",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stats",
+								"YZehJsd"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"35-5iNYtVYSmzf/J1QCu1REGmxMqj0\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 09 Jul 2025 13:51:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Not Found\",\n    \"message\": \"Short URL not found\"\n}"
+				}
+			]
+		}
+	]
+}
