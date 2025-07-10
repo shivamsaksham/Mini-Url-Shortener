@@ -5,6 +5,9 @@
 Create a simple REST API that shortens long URLs and returns a short code. When the
 short code is accessed, it redirects to the original URL.
 
+
+For detailed API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
+
 ## Tech Stack:
 
 - language : Typescript
@@ -108,5 +111,3 @@ curl -L http://localhost:5000/abc123
 ```bash
 curl http://localhost:5000/stats/abc123
 ```
-
-For detailed API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
