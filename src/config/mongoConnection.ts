@@ -12,7 +12,7 @@ class MongoConnection {
   private options: MongoConnectionOptions;
 
   private constructor() {
-    this.connectionUri = process.env.MONGO_URI || "mongodb+srv://preacher:fgsDkqqxiWxe5eDT@yt.i3cxk8p.mongodb.net/?retryWrites=true&w=majority&appName=YT";
+    this.connectionUri = process.env.MONGO_URI || "";
     this.options = {
       maxRetries: 5,
       retryDelay: 5000, // 5 seconds
