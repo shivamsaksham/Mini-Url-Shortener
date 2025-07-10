@@ -75,6 +75,15 @@ For detailed API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.m
    curl http://localhost:5000/health-check
    ```
 
+### Docker Run
+
+Run the server using the Docker Container
+
+**Build and run the Container**
+```bash
+docker-compose up -d --build
+```
+
 ### API Endpoints
 
 - **POST** `/shorten` - Create a shortened URL
@@ -92,6 +101,7 @@ For detailed API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.m
 - ✅ Duplicate URL detection
 - ✅ MongoDB persistence
 - ✅ Rate Limiter
+- ✅ Dockerized
 
 ### Usage Examples
 
