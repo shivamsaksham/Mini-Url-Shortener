@@ -85,11 +85,10 @@ short code is accessed, it redirects to the original URL.
 - ✅ URL shortening with 6-character unique codes
 - ✅ Automatic 15-day expiry for all URLs
 - ✅ URL validation (HTTP/HTTPS only)
-- ✅ Click tracking and analytics
+- ✅ Click tracking
 - ✅ Duplicate URL detection
 - ✅ MongoDB persistence
-- ✅ Comprehensive error handling
-- ✅ TypeScript support
+- ✅ Rate Limiter
 
 ### Usage Examples
 

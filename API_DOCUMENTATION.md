@@ -13,7 +13,7 @@ http://localhost:5000
 ### 1. Create Short URL
 **POST** `/shorten`
 
-Create a shortened URL from a long URL.
+Create a shortened URL from a long URL provided by the users.
 
 #### Request Body
 ```json
@@ -48,10 +48,10 @@ Redirects to the original URL using the short code.
 - **404 Not Found**: Short URL not found or expired
 - **400 Bad Request**: Invalid short code
 
-### 3. Get URL Statistics (Optional)
+### 3. Get URL Statistics
 **GET** `/stats/:code`
 
-Get statistics for a shortened URL.
+Get number of clicks for a shortened URL.
 
 #### Parameters
 - `code` (string): The short code from the shortened URL
@@ -91,7 +91,7 @@ Check if the server is running.
 curl -X POST http://localhost:5000/shorten \
   -H "Content-Type: application/json" \
   -d '{
-    "url": "https://www.google.com/search?q=url+shortener"
+    "url": "https://shivamsaksham.codeviral.dev"
   }'
 ```
 
@@ -113,6 +113,7 @@ curl http://localhost:5000/stats/abc123
 - **Click Tracking**: Tracks the number of clicks on short URLs
 - **MongoDB Storage**: Persistent storage with MongoDB
 - **Error Handling**: Comprehensive error handling with appropriate HTTP status codes
+- **Rate Limiting for Shorten Url**: Max 5 Requests per minute to short the url
 
 ## Database Schema
 

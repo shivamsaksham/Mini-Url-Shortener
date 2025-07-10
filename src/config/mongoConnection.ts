@@ -80,23 +80,14 @@ class MongoConnection {
     }
   }
 
-  public getConnectionStatus(): boolean {
-    return this.isConnected && mongoose.connection.readyState === 1;
-  }
-
-  public getConnectionUri(): string {
-    // Return URI without credentials for logging purposes
-    return this.connectionUri.replace(/\/\/.*@/, '//***:***@');
-  }
-
   private setupEventListeners(): void {
     mongoose.connection.on('error', (error) => {
-      console.error('🚨 MongoDB connection error:', error);
+      console.error('🛑 MongoDB connection error:', error);
       this.isConnected = false;
     });
 
     mongoose.connection.on('disconnected', () => {
-      console.log('🔌 MongoDB disconnected');
+      console.log('⚠ MongoDB disconnected');
       this.isConnected = false;
     });
 
@@ -105,7 +96,7 @@ class MongoConnection {
       this.isConnected = true;
     });
 
-    // Graceful shutdown
+    // shutdown handled here for proper cleanup
     process.on('SIGINT', async () => {
       console.log('\n🛑 Received SIGINT. Gracefully shutting down...');
       await this.disconnect();

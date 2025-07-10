@@ -51,12 +51,12 @@ export class UrlService {
    * Create a shortened URL
    */
   public static async createShortUrl(originalUrl: string): Promise<{ shortUrl: string; shortCode: string }> {
-    // Validate URL
+    // Validating URL
     if (!this.isValidUrl(originalUrl)) {
       throw new Error('Invalid URL format');
     }
 
-    // Check if URL already exists
+    // Checking if URL already exists in MongoDb
     const existingUrl = await Url.findOne({ originalUrl });
     if (existingUrl && (!existingUrl.expiryDate || existingUrl.expiryDate > new Date())) {
       return {
@@ -65,10 +65,10 @@ export class UrlService {
       };
     }
 
-    // Generate unique short code
+    // Generate unique short code, that will not conflict with existing ones
     const shortCode = await this.generateUniqueShortCode();
 
-    // Set expiry date to 15 days from creation
+    // Set expiry date to 15 days from creation of the short URL
     const expiryDate = new Date();
     expiryDate.setDate(expiryDate.getDate() + 15);
 
