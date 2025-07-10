@@ -19,7 +19,6 @@ const urlSchema = new Schema<IUrl>({
     required: true,
     unique: true,
     trim: true,
-    index: true,
   },
   createdAt: {
     type: Date,
